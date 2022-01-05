@@ -13,24 +13,26 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @ApiModel(description = "Información de especialidades")
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "specialty")
 public class Specialty {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idSpecialty;
+	@Column(name = "id_specialty")
+	private int id;
 
-	@Column(name = "name", nullable = false, length = 70)
+	@Column(nullable = false, unique = true, length = 70)
 	private String name;
 
-	@Column(name = "status", nullable = false)
+	@Column(nullable = false, length = 150)
+	private String description;
+
+	@Column(nullable = false)
 	private boolean status;
 
 	@JsonSerialize(using = ToStringSerializer.class)

@@ -1,7 +1,9 @@
 package com.andresguachisaca.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +43,9 @@ public class SpecialtyServiceImpl implements ISpecialtyService {
 
 	@Override
 	public List<Specialty> getList() {
-		return specialityDao.findAll();
+		return specialityDao.findAll().stream().sorted(Comparator.comparing(Specialty::getId))
+				.collect(Collectors.toList());
+
 	}
 
 }

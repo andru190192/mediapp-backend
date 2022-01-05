@@ -54,7 +54,7 @@ public class SpecialityController {
 	public HttpEntity<Specialty> save(@RequestBody Specialty specialtyRequest) {
 		Specialty specialty = new Specialty();
 		try {
-			System.out.println("specialtyRequest " + specialtyRequest.getIdSpecialty());
+			System.out.println("specialtyRequest " + specialtyRequest.getId());
 			specialty = specialtyService.save(specialtyRequest);
 		} catch (Exception e) {
 			return new ResponseEntity<Specialty>(specialty, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -66,9 +66,9 @@ public class SpecialityController {
 	public HttpEntity<Specialty> update(@RequestBody Specialty specialtyRequest) {
 		Specialty specialty = null;
 		try {
-			specialty = specialtyService.getById(specialtyRequest.getIdSpecialty());
+			specialty = specialtyService.getById(specialtyRequest.getId());
 			if (specialty == null) {
-				throw new ModelNotFoundException("ID: " + specialtyRequest.getIdSpecialty());
+				throw new ModelNotFoundException("ID: " + specialtyRequest.getId());
 			} else {
 				specialty = specialtyService.update(specialtyRequest);
 			}
