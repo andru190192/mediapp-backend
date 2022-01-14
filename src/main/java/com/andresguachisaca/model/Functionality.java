@@ -17,7 +17,12 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
+
 @Entity
+@ApiModel(description = "Información de funcionalidades")
+@Data
 @Table(name = "functionality")
 public class Functionality {
 

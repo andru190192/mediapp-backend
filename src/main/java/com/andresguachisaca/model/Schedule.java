@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -14,29 +16,31 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@ApiModel(description = "Información de roles")
+@ApiModel(description = "Información de horarios")
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "rol")
-public class Rol {
+@Table(name = "schedule")
+public class Schedule {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_rol")
+	@Column(name = "id_schedule")
 	private int id;
 
-	@Column(nullable = false, length = 70)
-	private String name;
+	@ManyToOne
+	@JoinColumn(name = "id_doctor", nullable = false)
+	private Doctor doctor;
 
-	@Column(nullable = false, length = 150)
-	private String description;
+	@Column(nullable = false)
+	private LocalDateTime startHour;
+
+	@Column(nullable = false)
+	private LocalDateTime endHour;
 
 	@Column(nullable = false)
 	private boolean status;

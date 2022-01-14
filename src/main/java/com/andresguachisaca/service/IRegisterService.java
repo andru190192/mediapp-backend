@@ -2,9 +2,11 @@ package com.andresguachisaca.service;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.andresguachisaca.model.Doctor;
+import com.andresguachisaca.dto.RegisterDTO;
 
 @Transactional
-public interface IDoctorService extends ICrud<Doctor> {
+public interface IRegisterService {
+
+	void save(RegisterDTO registerDTO);
 
 }

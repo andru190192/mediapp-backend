@@ -1,36 +1,35 @@
 package com.andresguachisaca.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@ApiModel(description = "Información de doctores")
-@Data
+@ApiModel(description = "Información de pacientes")
 @Entity
-@Table(name = "doctor")
-public class Doctor {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "patient")
+public class Patient {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_doctor")
+	@Column(name = "id_patient")
 	private int id;
 
 	@Column(nullable = false, unique = true, length = 13)
@@ -63,10 +62,6 @@ public class Doctor {
 
 	@Column(nullable = false, length = 3)
 	private String gender;
-
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "specialty_doctor", joinColumns = @JoinColumn(name = "id_doctor"), inverseJoinColumns = @JoinColumn(name = "id_specialty"))
-	private List<Specialty> specialties;
 
 	@Column(nullable = false)
 	private boolean status;

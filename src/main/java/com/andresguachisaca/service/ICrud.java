@@ -2,6 +2,9 @@ package com.andresguachisaca.service;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
 public interface ICrud<T> {
 
 	T save(T t);

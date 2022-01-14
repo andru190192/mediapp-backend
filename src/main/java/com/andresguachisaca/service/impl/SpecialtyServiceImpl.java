@@ -45,7 +45,6 @@ public class SpecialtyServiceImpl implements ISpecialtyService {
 	public List<Specialty> getList() {
 		return specialityDao.findAll().stream().sorted(Comparator.comparing(Specialty::getId))
 				.collect(Collectors.toList());
-
 	}
 
 }
