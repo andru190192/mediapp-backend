@@ -44,8 +44,13 @@ public class PatientServiceImpl implements IPatientService {
 	@Override
 	public List<Patient> getList() {
 		System.out.println("entre getList");
-		System.out.println("patientList sImpl"+ patientDao.findAll());
+		System.out.println("patientList sImpl" + patientDao.findAll());
 		return patientDao.findAll().stream().sorted(Comparator.comparing(Patient::getId)).collect(Collectors.toList());
+	}
+
+	@Override
+	public Patient getByDni(String dni) {
+		return patientDao.getByDni(dni);
 	}
 
 }

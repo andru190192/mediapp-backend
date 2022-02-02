@@ -88,4 +88,9 @@ public class DoctorController {
 		}
 	}
 
+	@GetMapping(value = "/specialty/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Doctor>> getDoctorsBySpecialty(@PathVariable Integer id) {
+		return new ResponseEntity<List<Doctor>>(doctorService.getDoctorsBySpecialty(id), HttpStatus.OK);
+	}
+
 }

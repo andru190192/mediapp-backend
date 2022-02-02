@@ -7,4 +7,6 @@ import com.andresguachisaca.model.Patient;
 @Transactional
 public interface IPatientService extends ICrud<Patient> {
 
+	Patient getByDni(String dni);
+
 }

@@ -47,4 +47,9 @@ public class ScheduleServiceImpl implements IScheduleService {
 				.collect(Collectors.toList());
 	}
 
+	@Override
+	public List<Schedule> getByDoctor(int idDoctor) {
+		return scheduleDao.getByDoctor(idDoctor);
+	}
+
 }

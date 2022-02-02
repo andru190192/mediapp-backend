@@ -3,17 +3,16 @@ package com.andresguachisaca.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -65,7 +64,7 @@ public class Doctor {
 	private String gender;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "specialty_doctor", joinColumns = @JoinColumn(name = "id_doctor"), inverseJoinColumns = @JoinColumn(name = "id_specialty"))
+	@JoinTable(name = "specialty_doctor", joinColumns = @JoinColumn(name = "id_doctor"), inverseJoinColumns = @JoinColumn(name = "id_specialty"), foreignKey = @ForeignKey(name = "doctor_fk"), inverseForeignKey = @ForeignKey(name = "specialty_fk"))
 	private List<Specialty> specialties;
 
 	@Column(nullable = false)

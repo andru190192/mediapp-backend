@@ -37,6 +37,9 @@ public class User {
 	@Column(name = "id_user")
 	private int id;
 
+	@Column(nullable = false, unique = true, length = 13)
+	private String dni;
+
 	@Column(nullable = false, unique = true)
 	private String username;
 

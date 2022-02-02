@@ -34,7 +34,7 @@ public class PatientController {
 		try {
 			System.out.println("Entre controller");
 			patientList = patientService.getList();
-			System.out.println("patientList "+ patientList);
+			System.out.println("patientList " + patientList);
 		} catch (Exception e) {
 			return new ResponseEntity<List<Patient>>(patientList, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -88,6 +88,20 @@ public class PatientController {
 		} else {
 			patientService.delete(id);
 		}
+	}
+
+	@GetMapping(value = "/getByDni/{dni}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Patient> getByDni(@PathVariable String dni) {
+		System.out.println("dni " + dni);
+		Patient patient = null;
+		try {
+
+			patient = patientService.getByDni(dni);
+
+		} catch (Exception e) {
+			return new ResponseEntity<Patient>(patient, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Patient>(patient, HttpStatus.OK);
 	}
 
 }

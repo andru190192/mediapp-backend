@@ -17,9 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.andresguachisaca.dto.ErrorDTO;
 import com.andresguachisaca.dto.ResponseDTO;
+import com.andresguachisaca.model.Doctor;
 import com.andresguachisaca.model.Functionality;
+import com.andresguachisaca.model.Patient;
 import com.andresguachisaca.model.User;
+import com.andresguachisaca.service.IDoctorService;
 import com.andresguachisaca.service.IFunctionalityService;
+import com.andresguachisaca.service.IPatientService;
 import com.andresguachisaca.service.IUserService;
 
 @RestController
@@ -34,6 +38,12 @@ public class LoginController {
 
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
+
+	@Autowired
+	private IPatientService patientService;
+	
+	@Autowired
+	private IDoctorService doctorService;
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResponseDTO> loginByUsernameAndPassword(@RequestBody Map<String, Object> request) {
@@ -57,9 +67,15 @@ public class LoginController {
 
 			List<Functionality> functionalities = functionalityService.getFunctionalitiesByUser(username);
 
+			Patient patient = patientService.getByDni(user.getDni());
+
+			Doctor doctor = doctorService.getByDni(user.getDni());
+
 			Map<String, Object> data = new HashMap<String, Object>();
 			data.put("functionalities", functionalities);
-			data.put("username", user.getUsername());
+			data.put("user", user);
+			data.put("patient", patient);
+			data.put("doctor", doctor);
 
 			response.setTitle("Exito");
 			response.setMessage("Login exitoso");

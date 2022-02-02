@@ -46,7 +46,7 @@ public class RegisterServiceImpl implements IRegisterService {
 		roles.add(Rol.builder().id(1).build());
 
 		// mapper DTO to User Entity
-		User user = User.builder().username(registerDTO.getUsername())
+		User user = User.builder().dni(registerDTO.getDni()).username(registerDTO.getUsername())
 				.password(bcrypt.encode(registerDTO.getPassword())).registrationDate(LocalDateTime.now()).roles(roles)
 				.status(true).build();
 

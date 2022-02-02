@@ -14,6 +14,7 @@ import com.andresguachisaca.dao.IScheduleDao;
 import com.andresguachisaca.model.Doctor;
 import com.andresguachisaca.model.Schedule;
 import com.andresguachisaca.service.IDoctorService;
+import com.andresguachisaca.util.Utils;
 
 @Service
 public class DoctorServiceImpl implements IDoctorService {
@@ -29,24 +30,33 @@ public class DoctorServiceImpl implements IDoctorService {
 		doctor.setStatus(true);
 		doctor.setRegistrationDate(LocalDateTime.now());
 
-		
 		Doctor doctorBD = doctorDao.save(doctor);
-		
+
 		List<Schedule> scheduleList = new ArrayList<>();
 
+		// se establece los 2 horarios por defecto para los medicos 9:00 - 12:00 y 16:00
+		// - 18:00
 		Schedule scheduleMorning = new Schedule();
 		scheduleMorning.setDoctor(doctorBD);
-		scheduleMorning.setStartHour(LocalDateTime.now().withHour(9));
-		scheduleMorning.setEndHour(LocalDateTime.now().withHour(9));
+		scheduleMorning.setStartHour(LocalDateTime.now().withHour(Utils.DEFAULT_MORNING_START_TIME));
+		scheduleMorning.setEndHour(LocalDateTime.now().withHour(Utils.DEFAULT_MORNING_END_TIME));
+		scheduleMorning.setStatus(true);
 		scheduleMorning.setRegistrationDate(LocalDateTime.now());
 
-		scheduleList.add(scheduleMorning);
+		Schedule scheduleAfternoon = new Schedule();
+		scheduleAfternoon.setDoctor(doctorBD);
+		scheduleAfternoon.setStartHour(LocalDateTime.now().withHour(Utils.DEFAULT_AFTERNOON_START_TIME));
+		scheduleAfternoon.setEndHour(LocalDateTime.now().withHour(Utils.DEFAULT_AFTERNOON_END_TIME));
+		scheduleAfternoon.setStatus(true);
+		scheduleAfternoon.setRegistrationDate(LocalDateTime.now());
 
-		
+		scheduleList.add(scheduleMorning);
+		scheduleList.add(scheduleAfternoon);
+
 		for (Schedule schedule : scheduleList) {
 			scheduleDao.save(schedule);
 		}
-		
+
 		return doctorBD;
 	}
 
@@ -69,6 +79,16 @@ public class DoctorServiceImpl implements IDoctorService {
 	@Override
 	public List<Doctor> getList() {
 		return doctorDao.findAll().stream().sorted(Comparator.comparing(Doctor::getId)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Doctor> getDoctorsBySpecialty(Integer idSpecialty) {
+		return doctorDao.getDoctorsBySpecialty(idSpecialty);
+	}
+
+	@Override
+	public Doctor getByDni(String dni) {
+		return doctorDao.getByDni(dni);
 	}
 
 }
