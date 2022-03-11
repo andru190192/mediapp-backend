@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.andresguachisaca.dto.RateDTO;
 import com.andresguachisaca.model.Doctor;
 
 @Repository
@@ -19,5 +20,10 @@ public interface IDoctorDao extends JpaRepository<Doctor, Integer> {
 
 	@Query(value = "select * from doctor where dni = :dni", nativeQuery = true)
 	Doctor getByDni(@Param("dni") String dni);
+
+	@Query(value = "select doc.id_doctor, doc.name, doc.surname, app.id_patient, app.registration_date, app.rate from doctor doc\n"
+			+ "left join appointment app on app.id_doctor=doc.id_doctor\n"
+			+ "order by doc.id_doctor", nativeQuery = true)
+	List<RateDTO> getDoctorsWithRate();
 
 }

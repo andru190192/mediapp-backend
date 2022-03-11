@@ -141,4 +141,9 @@ public class AppointmentServiceImpl implements IAppointmentService {
 		return appointmentDao.getByDoctorAndStartDateAndEndDate(idDoctor, startDate, endDate);
 	}
 
+	@Override
+	public List<Appointment> getByPatientAndStatus(int idPatient, int status) {
+		return appointmentDao.getByPatientAndStatus(idPatient, status);
+	}
+
 }

@@ -5,13 +5,10 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.andresguachisaca.dto.RateDTO;
-import com.andresguachisaca.model.Doctor;
 
 @Transactional
-public interface IDoctorService extends ICrud<Doctor> {
+public interface IReportService {
 
-	List<Doctor> getDoctorsBySpecialty(Integer idSpecialty);
-
-	Doctor getByDni(String dni);
+	List<RateDTO> getRateReport();
 
 }

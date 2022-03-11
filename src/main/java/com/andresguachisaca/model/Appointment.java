@@ -62,6 +62,8 @@ public class Appointment {
 
 	@Column(nullable = false)
 	private int duration;
+	
+	private Integer rate;
 
 	@Column(nullable = false, length = 300)
 	private String reason;

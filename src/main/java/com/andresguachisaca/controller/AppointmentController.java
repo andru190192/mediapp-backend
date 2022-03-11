@@ -269,4 +269,11 @@ public class AppointmentController {
 		return new ResponseEntity<Appointment>(appointment, HttpStatus.OK);
 	}
 
+	@PostMapping(value = "/getByPatientAndStatus", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Appointment>> getByPatientAndStatus(@RequestBody Appointment appointmentRequest) {
+		List<Appointment> appointments = appointmentService
+				.getByPatientAndStatus(appointmentRequest.getPatient().getId(), appointmentRequest.getStatus());
+		return new ResponseEntity<List<Appointment>>(appointments, HttpStatus.OK);
+	}
+
 }

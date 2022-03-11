@@ -21,4 +21,6 @@ public interface IAppointmentService extends ICrud<Appointment> {
 
 	List<Appointment> getByDoctorAndStartDateAndEndDate(int idDoctor, LocalDateTime startDate, LocalDateTime endDate);
 
+	List<Appointment> getByPatientAndStatus(int idPatient, int status);
+
 }

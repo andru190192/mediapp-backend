@@ -26,10 +26,14 @@ public interface IAppointmentDao extends JpaRepository<Appointment, Integer> {
 
 	@Query(value = "SELECT * FROM appointment WHERE id_patient = :idPatient AND status = :status AND time_stamp >= :startDate AND time_stamp <= :endDate ORDER BY time_stamp", nativeQuery = true)
 	List<Appointment> getByPatientAndStartDateAndEndDateAndStatus(@Param("idPatient") int idPatient,
-			@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, @Param("status") int status);
-	
+			@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate,
+			@Param("status") int status);
+
 	@Query(value = "SELECT * FROM appointment WHERE id_doctor = :idDoctor AND status = 0 AND time_stamp >= :startDate AND time_stamp <= :endDate ORDER BY time_stamp", nativeQuery = true)
 	List<Appointment> getByDoctorAndStartDateAndEndDate(@Param("idDoctor") int idPatient,
 			@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+
+	@Query(value = "SELECT * FROM appointment WHERE id_patient = :idPatient AND status = :status ORDER BY time_stamp", nativeQuery = true)
+	List<Appointment> getByPatientAndStatus(@Param("idPatient") int idPatient, @Param("status") int status);
 
 }

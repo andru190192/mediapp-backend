@@ -109,16 +109,19 @@ and status = 0
 
 select * from appointment where id_doctor = 2 and time_stamp >= now() and time_stamp <= '2022-01-17T21:11:18.464552' and status = 0
 
-select * from appointment appointmen0_
+select appointmen0_.* from appointment appointmen0_
 inner join doctor doctor1_ on appointmen0_.id_doctor=doctor1_.id_doctor
 left outer join specialty_doctor specialtie2_ on doctor1_.id_doctor=specialtie2_.id_doctor
 left outer join specialty specialty3_ on specialtie2_.id_specialty=specialty3_.id_specialty
 inner join patient patient4_ on appointmen0_.id_patient=patient4_.id_patient
 inner join specialty specialty5_ on appointmen0_.id_specialty=specialty5_.id_specialty
-where appointmen0_.id_appointment=2
+where specialty3_.id_specialty = 3 and patient4_.gender = 'F' order by appointmen0_.id_appointment
 
 select medicine0_.id_medicine as id_medic1_6_0_, medicine0_.name as name2_6_0_, medicine0_.registration_date as registra3_6_0_, medicine0_.status as status4_6_0_, medicine0_.update_date as update_d5_6_0_
 from medicine medicine0_ where medicine0_.id_medicine=1
 
+select app.* from appointment app
+inner join patient pat on app.id_patient=pat.id_patient
+where pat.gender='F'
 
 
